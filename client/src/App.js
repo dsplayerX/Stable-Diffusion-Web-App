@@ -30,8 +30,8 @@ const App = () => {
   return (
     <ChakraProvider>
       <Container>
-        <Heading>Dream Like Stable DIffusion</Heading>
-        <Text marginBottom={"10px"}>
+        <Heading marginTop={"20px"}>Dream-like Stable Diffusion</Heading>
+        <Text marginBottom={"20px"} marginTop={"20px"}>
           The model can be found via{" "}
           <Link
             href={
@@ -42,14 +42,14 @@ const App = () => {
           </Link>
         </Text>
 
-        <Wrap marginBottom={"10px"}>
+        <Wrap marginBottom={"20px"}>
           <Input
             value={prompt}
             onChange={(e) => updatePrompt(e.target.value)}
             width={"350px"}
           ></Input>
-          <Button onClick={(e) => generate(prompt)} colorScheme={"yellow"}>
-            Generate
+          <Button onClick={(e) => generate(prompt)} colorScheme={"red"}>
+            Dream
           </Button>
         </Wrap>
 

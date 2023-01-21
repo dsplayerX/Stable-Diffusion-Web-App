@@ -27,7 +27,7 @@ def generate(prompt: str):
     with autocast(device): 
         image = pipe(prompt, guidance_scale=7.5, num_inference_steps=50, height=512, width=512).images[0]
 
-    image.save("testimage.png")
+    image.save("../saved-images/" + prompt + ".png")
     buffer = BytesIO()
     image.save(buffer, format="PNG")
     imgstr = base64.b64encode(buffer.getvalue())
