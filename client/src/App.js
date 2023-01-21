@@ -32,7 +32,7 @@ const App = () => {
       <Container>
         <Heading marginTop={"20px"}>Dream-like Stable Diffusion</Heading>
         <Text marginBottom={"20px"} marginTop={"20px"}>
-          The model can be found via{" "}
+          The dreamlike-diffusion-v1 model can be found via{" "}
           <Link
             href={
               "https://huggingface.co/dreamlike-art/dreamlike-diffusion-1.0"
