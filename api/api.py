@@ -6,6 +6,7 @@ from torch import autocast
 from diffusers import StableDiffusionPipeline
 from io import BytesIO
 import base64 
+import random
 
 app = FastAPI()
 
@@ -25,9 +26,9 @@ pipe.to(device)
 @app.get("/")
 def generate(prompt: str): 
     with autocast(device): 
-        image = pipe(prompt, guidance_scale=7.5, num_inference_steps=50, height=512, width=512).images[0]
-
-    image.save("../saved-images/dreamlike-" + prompt[:50] + ".png")
+        image = pipe(prompt, guidance_scale=7, num_inference_steps=30, height=512, width=512).images[0]
+    randN = (random.randint(0,9999))
+    image.save("../saved-images/dl-" + str(randN)+ "-" + prompt[:50] + ".png")
     buffer = BytesIO()
     image.save(buffer, format="PNG")
     imgstr = base64.b64encode(buffer.getvalue())
