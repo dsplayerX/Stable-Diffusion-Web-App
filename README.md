@@ -19,7 +19,9 @@ A Simple React WebApp and a FastAPI backend that uses Stable Diffusion Pipelines
 
 ## How To Use
 
-### Add Token : `create 'auth_token.py' in /api and add variable "auth_token" with your huggingface token.`
+### Add Token:
+
+create 'auth_token.py' in /api and add variable "auth_token" with your huggingface token.
 
 ### Run API : `uvicorn api:app --reload`
 
