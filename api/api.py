@@ -4,9 +4,10 @@ from fastapi.middleware.cors import CORSMiddleware
 import torch
 from torch import autocast
 from diffusers import StableDiffusionPipeline
-from io import BytesIO
 import base64 
-import random
+import os
+import time
+from datetime import datetime
 
 app = FastAPI()
 
@@ -51,10 +52,26 @@ def generate(prompt: str):
     with autocast(device): 
         image = pipe(prompt, guidance_scale=7, num_inference_steps=30, height=512, width=512).images[0]
 
-    randN = (random.randint(0,9999))
-    image.save("../saved-images/dl-" + str(randN)+ "-" + prompt[:50] + ".png")
-    buffer = BytesIO()
-    image.save(buffer, format="PNG")
-    imgstr = base64.b64encode(buffer.getvalue())
+    filename = save_image(image, prompt)
+    with open(filename, "rb") as f:
+        imgstr = base64.b64encode(f.read())
 
     return Response(content=imgstr, media_type="image/png")
+
+# Define a function to save the image to disk
+def save_image(image, prompt):
+    # Create a directory for the current date, if it doesn't already exist
+    today = datetime.now().strftime("%Y-%m-%d")
+    save_path = "../generated-images/" + str(today)
+    if not os.path.exists(save_path):
+        os.makedirs(save_path)
+        
+    # Generate a unique filename based on timestamp and random number
+    timestamp = str(int(time.time())).zfill(10)
+    filename = f"{save_path}/{str(today)}-{str(timestamp)}-{str(prompt[:40])}-{str(model_id[:10])}.png"
+
+    # Save the image to disk
+    image.save(filename)
+
+    # Return the filename for logging or further processing
+    return filename
