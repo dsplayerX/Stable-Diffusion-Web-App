@@ -2,7 +2,7 @@
 
 A React WebApp and a FastAPI backend that uses Stable Diffusion Pipelines to generate images.
 
-![Stable Diffusion WebApp Screenshot](https://imgur.com/a/c9omlNl)
+[Imgur Image](https://i.imgur.com/9vNuMFB.png)
 
 ## Features
 
