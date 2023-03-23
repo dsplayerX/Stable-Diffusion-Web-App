@@ -11,6 +11,7 @@ import {
   Link,
   SkeletonCircle,
   SkeletonText,
+  Select,
 } from "@chakra-ui/react";
 import axios from "axios";
 import { useState } from "react";
@@ -22,9 +23,17 @@ const App = () => {
 
   const generate = async (prompt) => {
     updateLoading(true);
-    const result = await axios.get(`http://127.0.0.1:8000/?prompt=${prompt}`);
+    const result = await axios.get(
+      `http://127.0.0.1:8000/?prompt=${prompt}&model=${model}`
+    );
     updateImage(result.data);
     updateLoading(false);
+  };
+
+  const [model, setModel] = useState("model1");
+
+  const handleModelChange = (e) => {
+    setModel(e.target.value);
   };
 
   return (
@@ -34,7 +43,6 @@ const App = () => {
           Dream-like Stable Diffusion
         </Heading>
         <Text fontSize="xl" mb="10">
-          The dreamlike-diffusion-v1 model can be found via{" "}
           <Link
             href={
               "https://huggingface.co/dreamlike-art/dreamlike-diffusion-1.0"
@@ -42,9 +50,30 @@ const App = () => {
             isExternal
             textDecoration="underline"
           >
-            https://huggingface.co/dreamlike-art/dreamlike-diffusion-1.0
+            dreamlike-diffusion-v1 model
           </Link>
         </Text>
+        <Text fontSize="xl" mb="10">
+          <Link
+            href={"https://huggingface.co/stabilityai/stable-diffusion-2"}
+            isExternal
+            textDecoration="underline"
+          >
+            stable diffusion v2 model
+          </Link>
+        </Text>
+
+        <Stack direction="row" mb="4">
+          <Select value={model} onChange={handleModelChange} width={"200px"}>
+            <option value="dreamlike_model">Dream-like Model v1.0</option>
+            <option value="stable_diffusion_2_model">
+              Stable Diffusion v2 Model
+            </option>
+            <option value="stable_diffusion_v1-5">Stable Diffusion v1.5</option>
+            <option value="robo_diffusion_2">Robo Diffusion 2</option>
+            <option value="mo_di_diffusion">Mo Di Diffusion</option>
+          </Select>
+        </Stack>
 
         <Wrap spacing="4" mb="10">
           <Input
