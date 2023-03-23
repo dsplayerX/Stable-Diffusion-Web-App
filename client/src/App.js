@@ -29,25 +29,31 @@ const App = () => {
 
   return (
     <ChakraProvider>
-      <Container>
-        <Heading marginTop={"20px"}>Dream-like Stable Diffusion</Heading>
-        <Text marginBottom={"20px"} marginTop={"20px"}>
+      <Container maxW="xl" mt="50px" mb="100px">
+        <Heading as="h1" mb="5">
+          Dream-like Stable Diffusion
+        </Heading>
+        <Text fontSize="xl" mb="10">
           The dreamlike-diffusion-v1 model can be found via{" "}
           <Link
             href={
               "https://huggingface.co/dreamlike-art/dreamlike-diffusion-1.0"
             }
+            isExternal
+            textDecoration="underline"
           >
             https://huggingface.co/dreamlike-art/dreamlike-diffusion-1.0
           </Link>
         </Text>
 
-        <Wrap marginBottom={"20px"}>
+        <Wrap spacing="4" mb="10">
           <Input
             value={prompt}
             onChange={(e) => updatePrompt(e.target.value)}
             width={"350px"}
-          ></Input>
+            variant="filled"
+            placeholder="Enter your prompt here..."
+          />
           <Button onClick={(e) => generate(prompt)} colorScheme={"red"}>
             Dream
           </Button>
@@ -55,11 +61,16 @@ const App = () => {
 
         {loading ? (
           <Stack>
-            <SkeletonCircle />
-            <SkeletonText />
+            <SkeletonCircle size="20" />
+            <SkeletonText mt="4" noOfLines={5} spacing="4" />
           </Stack>
         ) : image ? (
-          <Image src={`data:image/png;base64,${image}`} boxShadow="lg" />
+          <Image
+            src={`data:image/png;base64,${image}`}
+            boxShadow="lg"
+            borderRadius="md"
+            w="100%"
+          />
         ) : null}
       </Container>
     </ChakraProvider>
