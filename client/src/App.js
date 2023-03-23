@@ -20,17 +20,25 @@ const App = () => {
   const [image, updateImage] = useState();
   const [prompt, updatePrompt] = useState();
   const [loading, updateLoading] = useState();
+  const [model, setModel] = useState("dreamlike_model");
 
   const generate = async (prompt) => {
     updateLoading(true);
     const result = await axios.get(
-      `http://127.0.0.1:8000/?prompt=${prompt}&model=${model}`
+      `http://127.0.0.1:8000/generate?prompt=${prompt}`
     );
     updateImage(result.data);
     updateLoading(false);
   };
 
-  const [model, setModel] = useState("model1");
+  const selectmodel = async (prompt) => {
+    updateLoading(true);
+    const result = await axios.get(
+      `http://127.0.0.1:8000/selectmodel?model=${model}`
+    );
+    //updateImage(result.data);
+    updateLoading(false);
+  };
 
   const handleModelChange = (e) => {
     setModel(e.target.value);
@@ -40,7 +48,7 @@ const App = () => {
     <ChakraProvider>
       <Container maxW="xl" mt="50px" mb="100px">
         <Heading as="h1" mb="5">
-          Dream-like Stable Diffusion
+          Stable Diffusion Web App
         </Heading>
         <Text fontSize="xl" mb="10">
           <Link
@@ -50,17 +58,49 @@ const App = () => {
             isExternal
             textDecoration="underline"
           >
-            dreamlike-diffusion-v1 model
+            Dreamlike Diffusion v1 Model
           </Link>
-        </Text>
-        <Text fontSize="xl" mb="10">
+          <br />
           <Link
             href={"https://huggingface.co/stabilityai/stable-diffusion-2"}
             isExternal
             textDecoration="underline"
           >
-            stable diffusion v2 model
+            Stable Diffusion v2 Model
           </Link>
+          <br />
+          <Link
+            href={"https://huggingface.co/runwayml/stable-diffusion-v1-5"}
+            isExternal
+            textDecoration="underline"
+          >
+            Stable Diffusion v1.5 Model
+          </Link>
+          <br />
+          <Link
+            href={"https://huggingface.co/nousr/robo-diffusion"}
+            isExternal
+            textDecoration="underline"
+          >
+            Robo Diffusion
+          </Link>
+          <br />
+          <Link
+            href={"https://huggingface.co/nitrosocke/mo-di-diffusion"}
+            isExternal
+            textDecoration="underline"
+          >
+            Mo Di Diffusion Model
+          </Link>
+          <br />
+          <Link
+            href={"https://huggingface.co/hakurei/waifu-diffusion"}
+            isExternal
+            textDecoration="underline"
+          >
+            Waifu Diffusion Model
+          </Link>
+          <br />
         </Text>
 
         <Stack direction="row" mb="4">
@@ -72,7 +112,11 @@ const App = () => {
             <option value="stable_diffusion_v1-5">Stable Diffusion v1.5</option>
             <option value="robo_diffusion_2">Robo Diffusion 2</option>
             <option value="mo_di_diffusion">Mo Di Diffusion</option>
+            <option value="waifu_diffusion">Waifu Diffusion</option>
           </Select>
+          <Button onClick={(e) => selectmodel(model)} colorScheme={"red"}>
+            Apply
+          </Button>
         </Stack>
 
         <Wrap spacing="4" mb="10">
