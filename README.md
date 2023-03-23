@@ -1,8 +1,8 @@
 # Stable-Diffusion-React-App
 
-A React WebApp and a FastAPI backend that uses Stable Diffusion Pipelines to generate images.
+A Simple React WebApp and a FastAPI backend that uses Stable Diffusion Pipelines to generate images.
 
-[Imgur Image](https://i.imgur.com/9vNuMFB.png)
+![Imgur](https://i.imgur.com/9vNuMFB.png)
 
 ## Features
 
@@ -11,12 +11,11 @@ A React WebApp and a FastAPI backend that uses Stable Diffusion Pipelines to gen
 - Select model from various diffusion models
 - All generated images are saved locally
 
-#### TODO
+#### To-Be-Implemented
 
 - Save button to download generated image
 - Generate images with more inference steps
-- Enter custom height and width for images
--
+- Enter custom heights and/or widths for images
 
 ## How To Use
 
